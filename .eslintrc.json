@@ -22,11 +22,9 @@
 	"rules": {
 		"react/react-in-jsx-scope": "off",
 		"require-jsdoc": 0,
-		"indent": [
-			"error",
-			4
-		],
+		"indent": "off",
 		"object-curly-spacing": "off",
+		"operator-linebreak": "off",
 		"prettier/prettier": [
 			"warn",
 			{
