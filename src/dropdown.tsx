@@ -7,13 +7,19 @@ import {
 } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
+interface ICountryRegion {
+    country: string;
+    regions: string[];
+    isSelected: boolean;
+}
+
 const selectLabels: string[] = ['Select countries', 'Select regions'];
 const selectLabelsShort: string[] = ['Country', 'Region'];
 
 const Dropdown = (props: {
     activeStep: number;
-    selectedCountriesAndRegions: object[];
-    setSelectedCountriesAndRegions: (items: object[]) => void;
+    selectedCountriesAndRegions: ICountryRegion[];
+    setSelectedCountriesAndRegions: (items: ICountryRegion[]) => void;
 }) => {
     const [isSelectFocused, setSelectFocus] = useState<boolean>(false);
 
@@ -28,51 +34,39 @@ const Dropdown = (props: {
     const handleChange = (e: SelectChangeEvent<string[]>) => {
         if (!props.activeStep) {
             props.setSelectedCountriesAndRegions(
-                props.selectedCountriesAndRegions.map(
-                    (x: {
-                        country: string;
-                        regions: string[];
-                        isSelected: boolean;
-                    }) => ({
-                        country: x.country,
-                        regions: x.regions,
-                        isSelected: e.target.value.includes(x.country),
-                    }),
-                ),
+                props.selectedCountriesAndRegions.map((x: ICountryRegion) => ({
+                    country: x.country,
+                    regions: x.regions,
+                    isSelected: e.target.value.includes(x.country),
+                })),
             );
         }
     };
 
     const renderMenuItems = () => {
-        const items = [];
+        const items: JSX.Element[] = [];
 
-        props.selectedCountriesAndRegions.map(
-            (x: {
-                country: string;
-                regions: string[];
-                isSelected: boolean;
-            }) => {
+        props.selectedCountriesAndRegions.map((x: ICountryRegion) => {
+            items.push(
+                <MenuItem
+                    disabled={Boolean(x.regions.length)}
+                    value={x.country}
+                    data-country={true}
+                    key={x.country}
+                    selected={true}
+                >
+                    <span>{x.country}</span>
+                </MenuItem>,
+            );
+
+            for (let i = 0; i < x.regions.length; i++) {
                 items.push(
-                    <MenuItem
-                        disabled={Boolean(x.regions.length)}
-                        value={x.country}
-                        data-country={true}
-                        key={x.country}
-                        selected={true}
-                    >
-                        <span>{x.country}</span>
+                    <MenuItem value={x.regions[i]} key={x.regions[i]}>
+                        <span>{x.regions[i]}</span>
                     </MenuItem>,
                 );
-
-                for (let i = 0; i < x.regions.length; i++) {
-                    items.push(
-                        <MenuItem value={x.regions[i]} key={x.regions[i]}>
-                            <span>{x.regions[i]}</span>
-                        </MenuItem>,
-                    );
-                }
-            },
-        );
+            }
+        });
 
         return items;
     };
@@ -92,11 +86,7 @@ const Dropdown = (props: {
                 labelId="demo-multiple-name-label"
                 id="demo-multiple-name"
                 value={props.selectedCountriesAndRegions.map(
-                    (x: {
-                        country: string;
-                        regions: string[];
-                        isSelected: boolean;
-                    }) => {
+                    (x: ICountryRegion) => {
                         return x.isSelected ? x.country : null;
                     },
                 )}

@@ -10,11 +10,15 @@ interface IsActionPreviousStep {
 
 type Action = IsActionNextStep | IsActionPreviousStep;
 
-const initialState = {
+interface State {
+    value: number;
+}
+
+const initialState: State = {
     value: 0,
 };
 
-const step = (state = initialState, action: Action) => {
+const step = (state: State = initialState, action: Action) => {
     switch (action.type) {
         case NEXT_STEP:
             return {

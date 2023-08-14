@@ -6,7 +6,13 @@ import { Stack, Button, Box } from '@mui/material';
 import Stepper from './stepper';
 import Dropdown from './dropdown';
 
-const countriesAndTheirRegions = [
+interface Country {
+    country: string;
+    regions: string[];
+    isSelected: boolean;
+}
+
+const countriesAndTheirRegions: Country[] = [
     {
         country: 'United States of America',
         regions: [
@@ -103,7 +109,7 @@ function App() {
     const dispatch = useDispatch();
 
     const [selectedCountriesAndRegions, setSelectedCountriesAndRegions] =
-        useState<object[]>(
+        useState<Country[]>(
             countriesAndTheirRegions.map((x) => ({
                 country: x.country,
                 regions: [],
