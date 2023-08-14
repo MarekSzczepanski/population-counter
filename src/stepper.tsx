@@ -1,6 +1,11 @@
 import { Grid, Stepper, Step, StepLabel } from '@mui/material';
 
-const steps = ['1', '2', '3'];
+const steps = [
+    'Choose countries',
+    'Choose regions',
+    'Choose decades',
+    'Results',
+];
 
 const StepperComponent = ({
     activeStep,
