@@ -1,14 +1,14 @@
 import { NEXT_STEP, PREVIOUS_STEP } from '../actionTypes/actionTypes';
 
-interface IsActionNextStep {
+interface IActionNextStep {
     type: 'NEXT_STEP';
 }
 
-interface IsActionPreviousStep {
+interface IActionPreviousStep {
     type: 'PREVIOUS_STEP';
 }
 
-type Action = IsActionNextStep | IsActionPreviousStep;
+type Action = IActionNextStep | IActionPreviousStep;
 
 interface State {
     value: number;

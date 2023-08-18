@@ -1,10 +1,16 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import step from './reducers/step';
+import buttonsLock from './reducers/buttonsLock';
+import dropdownItems from './reducers/dropdownItems';
+
+const rootReducer = combineReducers({
+    step,
+    buttonsLock,
+    dropdownItems,
+});
 
 const store = configureStore({
-    reducer: {
-        step,
-    },
+    reducer: rootReducer,
 });
 
 export default store;
