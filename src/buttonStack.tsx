@@ -26,8 +26,8 @@ function ButtonStack(): JSX.Element {
             spacing={2}
             direction="row"
             sx={{
-                m: 10,
-                width: 300,
+                m: '80px auto',
+                width: 320,
                 display: 'flex',
                 justifyContent: 'space-between',
             }}

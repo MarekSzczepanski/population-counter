@@ -1,9 +1,9 @@
 import { Grid, Stepper, Step, StepLabel } from '@mui/material';
 
 const steps = [
-    'Choose countries',
-    'Choose regions',
-    'Choose decades',
+    'Countries',
+    'Regions',
+    'Decades',
     'Results',
 ];
 

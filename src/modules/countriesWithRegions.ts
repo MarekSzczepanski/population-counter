@@ -1,6 +1,16 @@
 interface ICountryWithRegions {
     country: string;
-    regions: string[];
+    regions: IRegion[];
+}
+
+interface IRegion {
+    name: string;
+    population: IPopulation[];
+}
+
+interface IPopulation {
+    decade: number;
+    value: number;
 }
 
 interface ICountryWithRegionsWithIsSelectedProperty {
@@ -11,6 +21,7 @@ interface ICountryWithRegionsWithIsSelectedProperty {
 
 interface IRegionWithIsSelectedProperty {
     name: string;
+    population: IPopulation[];
     isSelected: boolean;
 }
 
@@ -18,87 +29,91 @@ const countriesWithRegions: ICountryWithRegions[] = [
     {
         country: 'United States of America',
         regions: [
-            'Alabama',
-            'Alaska',
-            'Arizona',
-            'Arkansas',
-            'California',
-            'Colorado',
-            'Connecticut',
-            'Delaware',
-            'Florida',
-            'Georgia',
-            'Hawaii',
-            'Idaho',
-            'Illinois',
-            'Indiana',
-            'Iowa',
-            'Kansas',
-            'Kentucky',
-            'Louisiana',
-            'Maine',
-            'Maryland',
-            'Massachusetts',
-            'Michigan',
-            'Minnesota',
-            'Mississippi',
-            'Missouri',
-            'Montana',
-            'Nebraska',
-            'Nevada',
-            'New Hampshire',
-            'New Jersey',
-            'New Mexico',
-            'New York',
-            'North Carolina',
-            'North Dakota',
-            'Ohio',
-            'Oklahoma',
-            'Oregon',
-            'Pennsylvania',
-            'Rhode Island',
-            'South Carolina',
-            'South Dakota',
-            'Tennessee',
-            'Texas',
-            'Utah',
-            'Vermont',
-            'Virginia',
-            'Washington',
-            'West Virginia',
-            'Wisconsin',
-            'Wyoming',
+            {
+                name: 'Alabama',
+                population: [
+                    {
+                        decade: 1900,
+                        value: 1828697,
+                    },
+                    {
+                        decade: 1910,
+                        value: 2138093,
+                    },
+                    {
+                        decade: 1920,
+                        value: 2348174,
+                    },
+                    {
+                        decade: 1930,
+                        value: 2646248,
+                    },
+                    {
+                        decade: 1940,
+                        value: 2832961,
+                    },
+                    {
+                        decade: 1950,
+                        value: 3061743,
+                    },
+                    {
+                        decade: 1960,
+                        value: 3266740,
+                    },
+                    {
+                        decade: 1970,
+                        value: 3444165,
+                    },
+                    {
+                        decade: 1980,
+                        value: 3893888,
+                    },
+                    {
+                        decade: 1990,
+                        value: 4040587,
+                    },
+                    {
+                        decade: 2000,
+                        value: 4447100,
+                    },
+                    {
+                        decade: 2010,
+                        value: 4779736,
+                    },
+                    {
+                        decade: 2020,
+                        value: 5024279,
+                    },
+                ],
+            },
         ],
     },
     {
         country: 'Canada',
         regions: [
-            'Alberta',
-            'British Columbia',
-            'Manitoba',
-            'New Brunswick',
-            'Newfoundland and Labrador',
-            'Northwest Territories',
-            'Nova Scotia',
-            'Nunavut',
-            'Ontario',
-            'Prince Edward Island',
-            'Quebec',
-            'Saskatchewan',
-            'Yukon',
+            {
+                name: 'Alberta',
+                population: [
+                    {
+                        decade: 1900,
+                        value: 1,
+                    },
+                ],
+            },
         ],
     },
     {
         country: 'Australia',
         regions: [
-            'Capital Territory',
-            'New South Wales',
-            'Northern Territory',
-            'Queensland',
-            'South Australia',
-            'Tasmania',
-            'Victoria',
-            'Western Australia',
+            {
+                name: 'Capital Territory',
+                population: [
+                    {
+                        decade: 1900,
+                        value: 1,
+                    },
+                ],
+            },
         ],
     },
 ];
@@ -108,7 +123,8 @@ export const addIsSelectedProperties =
         return countriesWithRegions.map((c) => ({
             country: c.country,
             regions: c.regions.map((r) => ({
-                name: r,
+                name: r.name,
+                population: r.population,
                 isSelected: false,
             })),
             isSelected: false,
