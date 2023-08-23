@@ -25,11 +25,10 @@ const Dropdown = (): JSX.Element => {
     const isRegionSelected = dropdownItems.value.some((x) =>
       x.regions.some((r) => r.isSelected),
     );
-    const shouldLockNextButton =
-      !isCountrySelected || (step.value && !isRegionSelected);
+    const lockNextButton = step.value ? !isRegionSelected : !isCountrySelected;
 
-    dispatch(setButtonsLock([undefined, undefined, shouldLockNextButton]));
-  }, [dropdownItems]);
+    dispatch(setButtonsLock([undefined, undefined, lockNextButton]));
+  }, [dropdownItems, step.value]);
 
   const handleFocus = (): void => {
     setSelectFocus(true);
