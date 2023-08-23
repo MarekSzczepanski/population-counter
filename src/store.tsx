@@ -4,13 +4,13 @@ import buttonsLock from './reducers/buttonsLock';
 import dropdownItems from './reducers/dropdownItems';
 
 const rootReducer = combineReducers({
-    step,
-    buttonsLock,
-    dropdownItems,
+  step,
+  buttonsLock,
+  dropdownItems,
 });
 
 const store = configureStore({
-    reducer: rootReducer,
+  reducer: rootReducer,
 });
 
 export default store;

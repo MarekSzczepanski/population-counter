@@ -1,26 +1,26 @@
 import { SET_DROPDOWN_ITEMS } from '../actionTypes/actionTypes';
 
 interface IItem {
-    country: string;
-    regions: IRegion[];
-    isSelected: boolean;
+  country: string;
+  regions: IRegion[];
+  isSelected: boolean;
 }
 
 interface IRegion {
-    name: string;
-    isSelected: boolean;
+  name: string;
+  isSelected: boolean;
 }
 
 const setDropdownItems = (
-    items: IItem[],
+  items: IItem[],
 ): {
-    type: string;
-    payload: IItem[];
+  type: string;
+  payload: IItem[];
 } => {
-    return {
-        type: SET_DROPDOWN_ITEMS,
-        payload: items,
-    };
+  return {
+    type: SET_DROPDOWN_ITEMS,
+    payload: items,
+  };
 };
 
 export { setDropdownItems };

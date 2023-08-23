@@ -6,57 +6,57 @@ import { setButtonsLock } from './actions/buttonsLockAction';
 import { Stack, Button, Box } from '@mui/material';
 
 function ButtonStack(): JSX.Element {
-    const state = useSelector((state: RootState) => state);
-    const dispatch = useDispatch();
+  const state = useSelector((state: RootState) => state);
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(setButtonsLock([!state.step.value, undefined, undefined]));
-    }, [state.step.value]);
+  useEffect(() => {
+    dispatch(setButtonsLock([!state.step.value, undefined, undefined]));
+  }, [state.step.value]);
 
-    const goNextStep = (): void => {
-        dispatch(nextStep());
-    };
+  const goNextStep = (): void => {
+    dispatch(nextStep());
+  };
 
-    const goPreviousStep = (): void => {
-        dispatch(previousStep());
-    };
+  const goPreviousStep = (): void => {
+    dispatch(previousStep());
+  };
 
-    return (
-        <Stack
-            spacing={2}
-            direction="row"
-            sx={{
-                m: '80px auto',
-                width: 320,
-                display: 'flex',
-                justifyContent: 'space-between',
-            }}
+  return (
+    <Stack
+      spacing={2}
+      direction="row"
+      sx={{
+        m: '80px auto',
+        width: 320,
+        display: 'flex',
+        justifyContent: 'space-between',
+      }}
+    >
+      <Button
+        onClick={goPreviousStep}
+        disabled={state.buttonsLock.value[0]}
+        variant="outlined"
+      >
+        Back
+      </Button>
+      <Box>
+        <Button
+          onClick={goNextStep}
+          disabled={state.buttonsLock.value[1]}
+          variant="text"
         >
-            <Button
-                onClick={goPreviousStep}
-                disabled={state.buttonsLock.value[0]}
-                variant="outlined"
-            >
-                Back
-            </Button>
-            <Box>
-                <Button
-                    onClick={goNextStep}
-                    disabled={state.buttonsLock.value[1]}
-                    variant="text"
-                >
-                    Skip
-                </Button>
-                <Button
-                    onClick={goNextStep}
-                    disabled={state.buttonsLock.value[2]}
-                    variant="contained"
-                >
-                    Next
-                </Button>
-            </Box>
-        </Stack>
-    );
+          Skip
+        </Button>
+        <Button
+          onClick={goNextStep}
+          disabled={state.buttonsLock.value[2]}
+          variant="contained"
+        >
+          Next
+        </Button>
+      </Box>
+    </Stack>
+  );
 }
 
 export default ButtonStack;
