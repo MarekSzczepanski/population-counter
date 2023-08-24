@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from './store';
-import { setDropdownItems } from './actions/dropdownItemsAction';
+import { setLocationsData } from './actions/locationsDataAction';
 import { setButtonsLock } from './actions/buttonsLockAction';
 import {
   OutlinedInput,
@@ -16,19 +16,19 @@ const selectLabelsShort: string[] = ['Country', 'Region'];
 
 const Dropdown = (): JSX.Element => {
   const state = useSelector((state: RootState) => state);
-  const { step, dropdownItems } = state;
+  const { step, locations } = state;
   const dispatch = useDispatch();
   const [isSelectFocused, setSelectFocus] = useState<boolean>(false);
 
   useEffect(() => {
-    const isCountrySelected = dropdownItems.value.some((x) => x.isSelected);
-    const isRegionSelected = dropdownItems.value.some((x) =>
+    const isCountrySelected = locations.value.some((x) => x.isSelected);
+    const isRegionSelected = locations.value.some((x) =>
       x.regions.some((r) => r.isSelected),
     );
     const lockNextButton = step.value ? !isRegionSelected : !isCountrySelected;
 
-    dispatch(setButtonsLock([undefined, undefined, lockNextButton]));
-  }, [dropdownItems, step.value]);
+    dispatch(setButtonsLock([undefined, !lockNextButton, lockNextButton]));
+  }, [locations, step.value]);
 
   const handleFocus = (): void => {
     setSelectFocus(true);
@@ -42,12 +42,13 @@ const Dropdown = (): JSX.Element => {
     const selectVal: string | string[] = e.target.value;
 
     dispatch(
-      setDropdownItems(
-        dropdownItems.value.map((x) => ({
+      setLocationsData(
+        locations.value.map((x) => ({
           country: x.country,
           regions: x.regions.map((r) => ({
             name: r.name,
             isSelected: selectVal.includes(r.name),
+            sliderValue: r.sliderValue,
           })),
           isSelected: step.value ? x.isSelected : selectVal.includes(x.country),
         })),
@@ -59,8 +60,8 @@ const Dropdown = (): JSX.Element => {
     const itemsToRender: string[] = [];
 
     if (step.value) {
-      for (let i = 0; i < dropdownItems.value.length; i++) {
-        const item = dropdownItems.value[i];
+      for (let i = 0; i < locations.value.length; i++) {
+        const item = locations.value[i];
 
         if (item.isSelected) {
           for (let j = 0; j < item.regions.length; j++) {
@@ -70,8 +71,8 @@ const Dropdown = (): JSX.Element => {
         }
       }
     } else {
-      for (let i = 0; i < dropdownItems.value.length; i++) {
-        const item = dropdownItems.value[i];
+      for (let i = 0; i < locations.value.length; i++) {
+        const item = locations.value[i];
         if (item.isSelected) itemsToRender.push(item.country);
       }
     }
@@ -82,8 +83,8 @@ const Dropdown = (): JSX.Element => {
   const renderMenuItems = (): JSX.Element[] => {
     const itemsToRender: JSX.Element[] = [];
 
-    for (let i = 0; i < dropdownItems.value.length; i++) {
-      const item = dropdownItems.value[i];
+    for (let i = 0; i < locations.value.length; i++) {
+      const item = locations.value[i];
 
       if (step.value && item.isSelected) {
         itemsToRender.push(renderMenuItem(item.country, item.country, true));

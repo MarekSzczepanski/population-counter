@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from './store';
 import { setButtonsLock } from './actions/buttonsLockAction';
+import { setLocationsData } from './actions/locationsDataAction';
 import { Box, Slider, InputLabel, Typography } from '@mui/material';
 import MuiInput from '@mui/material/Input';
 import { styled } from '@mui/material/styles';
@@ -11,20 +12,48 @@ const Input = styled(MuiInput)`
 `;
 
 const Sliders = (): JSX.Element => {
+  interface IRegion {
+    name: string;
+    isSelected?: boolean;
+    sliderValue?: number[];
+  }
+
   const state = useSelector((state: RootState) => state);
-  const { step, dropdownItems } = state;
+  const { locations } = state;
   const dispatch = useDispatch();
+  const [globalVal, setGlobalVal] = useState<number[]>([1960, 2000]);
 
-  console.log(
-    useState,
-    useEffect,
-    setButtonsLock,
-    step,
-    dropdownItems,
-    dispatch,
-  );
+  useEffect(() => {
+    dispatch(setButtonsLock([undefined, false, true]));
+  }, []);
 
-  const renderSlider = (i: number, region?: string) => {
+  const handleChange = (e) => {
+    const t = e.target;
+
+    if (!t.name) setGlobalVal(t.value);
+
+    const getSliderVal = (region: IRegion) => {
+      if (!t.name || t.name === region.name) return t.value;
+      return region.sliderValue;
+    };
+
+    dispatch(
+      setLocationsData(
+        locations.value.map((x) => ({
+          country: x.country,
+          regions: x.regions.map((r) => ({
+            name: r.name,
+            isSelected: r.isSelected,
+            sliderValue: getSliderVal(r),
+          })),
+          isSelected: x.isSelected,
+        })),
+      ),
+    );
+    dispatch(setButtonsLock([undefined, true, false]));
+  };
+
+  const renderSlider = (i: number, region?: IRegion) => {
     return (
       <Box
         sx={{
@@ -42,12 +71,20 @@ const Sliders = (): JSX.Element => {
           }}
         >
           {region ? (
-            <InputLabel htmlFor={`input${i}-0`}>{region}</InputLabel>
+            <InputLabel htmlFor={`input${i}-0`}>{region.name}</InputLabel>
           ) : null}
-          <Input id={`input${i}-0`} />
+          <Input
+            value={region ? region.sliderValue[0] : globalVal[0]}
+            id={`input${i}-0`}
+          />
         </Box>
         <Slider
-          value={[12, 54]}
+          onChange={(e) => handleChange(e)}
+          value={region ? region.sliderValue : globalVal}
+          name={region ? region.name : null}
+          min={1900}
+          max={2020}
+          step={10}
           getAriaLabel={() => 'Age range'}
           valueLabelDisplay="auto"
           sx={{ width: '50%' }}
@@ -60,9 +97,12 @@ const Sliders = (): JSX.Element => {
           }}
         >
           {region ? (
-            <InputLabel htmlFor={`input${i}-1`}>{region}</InputLabel>
+            <InputLabel htmlFor={`input${i}-1`}>{region.name}</InputLabel>
           ) : null}
-          <Input id={`input${i}-1`} />
+          <Input
+            value={region ? region.sliderValue[1] : globalVal[1]}
+            id={`input${i}-1`}
+          />
         </Box>
       </Box>
     );
@@ -71,19 +111,19 @@ const Sliders = (): JSX.Element => {
   const renderSliders = () => {
     interface IDisplayItems {
       country: string;
-      regions: string[];
+      regions: IRegion[];
     }
-    const selectedItems = state.dropdownItems.value.filter((x) => x.isSelected);
+    const selectedItems = state.locations.value.filter((x) => x.isSelected);
     const displayItems: IDisplayItems[] = [];
 
     for (let i = 0; i < selectedItems.length; i++) {
-      const x = selectedItems[i];
+      const item = selectedItems[i];
 
-      displayItems.push({ country: x.country, regions: [] });
+      displayItems.push({ country: item.country, regions: [] });
 
-      for (let j = 0; j < x.regions.length; j++) {
-        if (x.regions[j].isSelected) {
-          displayItems[i].regions.push(x.regions[j].name);
+      for (let j = 0; j < item.regions.length; j++) {
+        if (item.regions[j].isSelected) {
+          displayItems[i].regions.push(item.regions[j]);
         }
       }
     }

@@ -1,4 +1,4 @@
-import { SET_DROPDOWN_ITEMS } from '../actionTypes/actionTypes';
+import { SET_LOCATIONS_DATA } from '../actionTypes/actionTypes';
 
 interface IItem {
   country: string;
@@ -9,18 +9,19 @@ interface IItem {
 interface IRegion {
   name: string;
   isSelected: boolean;
+  sliderValue: number[];
 }
 
-const setDropdownItems = (
+const setLocationsData = (
   items: IItem[],
 ): {
   type: string;
   payload: IItem[];
 } => {
   return {
-    type: SET_DROPDOWN_ITEMS,
+    type: SET_LOCATIONS_DATA,
     payload: items,
   };
 };
 
-export { setDropdownItems };
+export { setLocationsData };

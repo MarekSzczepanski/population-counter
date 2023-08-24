@@ -1,12 +1,12 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import step from './reducers/step';
 import buttonsLock from './reducers/buttonsLock';
-import dropdownItems from './reducers/dropdownItems';
+import locations from './reducers/locations';
 
 const rootReducer = combineReducers({
   step,
   buttonsLock,
-  dropdownItems,
+  locations,
 });
 
 const store = configureStore({

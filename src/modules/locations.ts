@@ -1,4 +1,4 @@
-interface ICountryWithRegions {
+interface ILocation {
   country: string;
   regions: IRegion[];
 }
@@ -13,7 +13,7 @@ interface IPopulation {
   value: number;
 }
 
-interface ICountryWithRegionsWithIsSelectedProperty {
+interface ILocationWithIsSelectedProperty {
   country: string;
   regions: IRegionWithIsSelectedProperty[];
   isSelected: boolean;
@@ -23,9 +23,10 @@ interface IRegionWithIsSelectedProperty {
   name: string;
   population: IPopulation[];
   isSelected: boolean;
+  sliderValue: number[];
 }
 
-const countriesWithRegions: ICountryWithRegions[] = [
+const locations: ILocation[] = [
   {
     country: 'United States of America',
     regions: [
@@ -119,16 +120,17 @@ const countriesWithRegions: ICountryWithRegions[] = [
 ];
 
 export const addIsSelectedProperties =
-  (): ICountryWithRegionsWithIsSelectedProperty[] => {
-    return countriesWithRegions.map((c) => ({
+  (): ILocationWithIsSelectedProperty[] => {
+    return locations.map((c) => ({
       country: c.country,
       regions: c.regions.map((r) => ({
         name: r.name,
         population: r.population,
         isSelected: false,
+        sliderValue: [1960, 2000],
       })),
       isSelected: false,
     }));
   };
 
-export { addIsSelectedProperties as countriesWithRegions };
+export { addIsSelectedProperties as locations };
