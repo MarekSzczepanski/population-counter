@@ -104,7 +104,8 @@ function ButtonStack(): JSX.Element {
         m: '80px auto',
         width: 320,
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: `${buttonsLock.value[0] === null
+          ? 'center' : 'space-between'}`,
       }}
     >
       <Button
@@ -116,7 +117,7 @@ function ButtonStack(): JSX.Element {
       >
         Back
       </Button>
-      <Box>
+      <Box className='no-margin'>
         <Button
           onClick={goNextStep}
           disabled={buttonsLock.value[1]}
@@ -130,8 +131,6 @@ function ButtonStack(): JSX.Element {
           onClick={goNextStep}
           disabled={buttonsLock.value[2]}
           variant="contained"
-          sx={{marginLeft: `${buttonsLock.value[0] === null
-            ? 'auto' : '16px'}`}}
         >
           {step.value === 3 ? 'Add next card' : 'Next'}
         </Button>

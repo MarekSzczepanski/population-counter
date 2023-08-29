@@ -1,6 +1,9 @@
 body {
 	padding: 8px;
 }
+#root .no-margin {
+	margin: 0;
+}
 #root .MuiSlider-thumb {
 	width: 14px;
 	height: 14px;
