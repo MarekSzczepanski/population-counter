@@ -1,14 +1,11 @@
-import { NEXT_STEP, PREVIOUS_STEP } from '../actionTypes/actionTypes';
+import { CHANGE_STEP } from '../actionTypes/actionTypes';
 
-interface IActionNextStep {
-  type: 'NEXT_STEP';
+interface IActionChangeStep {
+  type: 'CHANGE_STEP';
+  payload: number;
 }
 
-interface IActionPreviousStep {
-  type: 'PREVIOUS_STEP';
-}
-
-type Action = IActionNextStep | IActionPreviousStep;
+type Action = IActionChangeStep;
 
 interface State {
   value: number;
@@ -20,13 +17,9 @@ const initialState: State = {
 
 const step = (state: State = initialState, action: Action) => {
   switch (action.type) {
-    case NEXT_STEP:
+    case CHANGE_STEP:
       return {
-        value: state.value + 1,
-      };
-    case PREVIOUS_STEP:
-      return {
-        value: state.value - 1,
+        value: action.payload,
       };
     default:
       return state;

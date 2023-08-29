@@ -1,15 +1,15 @@
-import { NEXT_STEP, PREVIOUS_STEP } from '../actionTypes/actionTypes';
+import { CHANGE_STEP } from '../actionTypes/actionTypes';
 
-const nextStep = () => {
+const changeStep = (
+  step: number,
+): {
+  type: string;
+  payload: number;
+} => {
   return {
-    type: NEXT_STEP,
+    type: CHANGE_STEP,
+    payload: step,
   };
 };
 
-const previousStep = () => {
-  return {
-    type: PREVIOUS_STEP,
-  };
-};
-
-export { nextStep, previousStep };
+export { changeStep };

@@ -1,7 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from './store';
-import { nextStep, previousStep } from './actions/stepAction';
+import { changeStep } from './actions/stepAction';
 import { addResult } from './actions/resultsAction';
+import { setLocationsData } from './actions/locationsDataAction';
+import { initialLocationsData } from './modules/initialLocationsData';
 import { Stack, Button, Box } from '@mui/material';
 
 function ButtonStack(): JSX.Element {
@@ -10,7 +12,7 @@ function ButtonStack(): JSX.Element {
   const dispatch = useDispatch();
 
   const goNextStep = (): void => {
-    dispatch(nextStep());
+    dispatch(changeStep(step.value + 1));
 
     if (step.value === 2) {
       // add or edit a result card
@@ -93,7 +95,12 @@ function ButtonStack(): JSX.Element {
   };
 
   const goPreviousStep = (): void => {
-    dispatch(previousStep());
+    dispatch(changeStep(step.value - 1));
+  };
+
+  const addNewCard = (): void => {
+    dispatch(changeStep(0));
+    dispatch(setLocationsData(initialLocationsData()));
   };
 
   return (
@@ -128,11 +135,11 @@ function ButtonStack(): JSX.Element {
           Skip
         </Button>
         <Button
-          onClick={goNextStep}
+          onClick={step.value === 3 ? addNewCard : goNextStep}
           disabled={buttonsLock.value[2]}
           variant="contained"
         >
-          {step.value === 3 ? 'Add next card' : 'Next'}
+          {step.value === 3 ? 'Add new card' : 'Next'}
         </Button>
       </Box>
     </Stack>

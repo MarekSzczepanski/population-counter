@@ -61,7 +61,7 @@ const Results = (): JSX.Element => {
       <Box className="grid-box" sx={{ display: 'flex' }}>
         {results.value.map((card: IResult, i: number) => {
           return (
-            <Card key={i}>
+            <Card sx={{ alignSelf: 'start'}} key={i}>
               <CardContent>
                 {card.data.map((country: ICountry, i: number) => {
                   return (
@@ -105,14 +105,14 @@ const Results = (): JSX.Element => {
               </CardContent>
               <CardActions>
                 <Button size="small" sx={{ fontWeight: 600 }}>
-                  EDIT SEGMENT
+                  EDIT CARD
                 </Button>
                 <Button
                   size="small"
                   sx={{ color: '#D13135', fontWeight: 600 }}
                   className='deleteButton'
                 >
-                  DELETE
+                  DELETE CARD
                 </Button>
               </CardActions>
             </Card>
