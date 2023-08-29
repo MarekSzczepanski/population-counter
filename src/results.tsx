@@ -44,7 +44,7 @@ const Results = (): JSX.Element => {
 
   useEffect(() => {
     console.log(results);
-    dispatch(setButtonsLock([true, true, false]));
+    dispatch(setButtonsLock([null, null, false]));
   }, []);
 
   return (

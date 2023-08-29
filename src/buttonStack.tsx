@@ -111,6 +111,8 @@ function ButtonStack(): JSX.Element {
         onClick={goPreviousStep}
         disabled={buttonsLock.value[0]}
         variant="outlined"
+        sx={{display: `${buttonsLock.value[0] === null
+          ? 'none' : 'inline-block'}`}}
       >
         Back
       </Button>
@@ -119,6 +121,8 @@ function ButtonStack(): JSX.Element {
           onClick={goNextStep}
           disabled={buttonsLock.value[1]}
           variant="text"
+          sx={{display: `${buttonsLock.value[1] === null
+            ? 'none' : 'inline-block'}`}}
         >
           Skip
         </Button>
@@ -126,8 +130,10 @@ function ButtonStack(): JSX.Element {
           onClick={goNextStep}
           disabled={buttonsLock.value[2]}
           variant="contained"
+          sx={{marginLeft: `${buttonsLock.value[0] === null
+            ? 'auto' : '16px'}`}}
         >
-          Next
+          {step.value === 3 ? 'Add next card' : 'Next'}
         </Button>
       </Box>
     </Stack>
