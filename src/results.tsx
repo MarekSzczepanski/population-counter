@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from './store';
 import { setButtonsLock } from './actions/buttonsLockAction';
+import { deleteResult } from './actions/resultsAction';
 import {
   Card,
   CardContent,
@@ -43,9 +44,12 @@ const Results = (): JSX.Element => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(results);
     dispatch(setButtonsLock([null, null, false]));
   }, []);
+
+  const deleteCard = (id: number) => {
+    dispatch(deleteResult({ id }));
+  };
 
   return (
     <>
@@ -61,7 +65,7 @@ const Results = (): JSX.Element => {
       <Box className="grid-box" sx={{ display: 'flex' }}>
         {results.value.map((card: IResult, i: number) => {
           return (
-            <Card sx={{ alignSelf: 'start'}} key={i}>
+            <Card sx={{ alignSelf: 'start' }} key={i}>
               <CardContent>
                 {card.data.map((country: ICountry, i: number) => {
                   return (
@@ -108,9 +112,10 @@ const Results = (): JSX.Element => {
                   EDIT CARD
                 </Button>
                 <Button
+                  onClick={() => deleteCard(i)}
                   size="small"
                   sx={{ color: '#D13135', fontWeight: 600 }}
-                  className='deleteButton'
+                  className="deleteButton"
                 >
                   DELETE CARD
                 </Button>

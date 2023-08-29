@@ -6,8 +6,8 @@ import {
 
 interface IPayload {
   id: number;
-  data: ICountry[] | null;
-  totalValue: number | null;
+  data?: ICountry[];
+  totalValue?: number;
 }
 
 interface IActionAddResult {
@@ -60,7 +60,9 @@ const results = (state: State = initialState, action: Action) => {
       };
     case DELETE_RESULT:
       return {
-        value: state.value.filter((x) => x.id !== action.payload.id),
+        value: state.value.filter((x) => x.id !== action.payload.id).map(
+          (x, i) => ({id: i, data: x.data, totalValue: x.totalValue}),
+        ),
       };
     default:
       return state;

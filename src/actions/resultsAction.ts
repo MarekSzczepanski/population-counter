@@ -5,9 +5,9 @@ import {
 } from '../actionTypes/actionTypes';
 
 interface IPayload {
-  id: number | null;
-  data: ICountry[] | null;
-  totalValue: number | null;
+  id: number;
+  data?: ICountry[];
+  totalValue?: number;
 }
 
 interface ICountry {
