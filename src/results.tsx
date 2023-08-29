@@ -107,7 +107,11 @@ const Results = (): JSX.Element => {
                 <Button size="small" sx={{ fontWeight: 600 }}>
                   EDIT SEGMENT
                 </Button>
-                <Button size="small" sx={{ color: '#D13135', fontWeight: 600 }}>
+                <Button
+                  size="small"
+                  sx={{ color: '#D13135', fontWeight: 600 }}
+                  className='deleteButton'
+                >
                   DELETE
                 </Button>
               </CardActions>
