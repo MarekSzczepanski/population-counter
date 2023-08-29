@@ -19,6 +19,13 @@ body {
 	text-align: center;
 	font-size: 12px;
 }
+#root .grid-box {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-column-gap: 20px;
+	grid-row-gap: 20px; 
+}
+
 @media (min-width: 1024px) {
 	body {
 		padding: 20px;

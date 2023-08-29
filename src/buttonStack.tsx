@@ -1,20 +1,95 @@
-import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from './store';
 import { nextStep, previousStep } from './actions/stepAction';
-import { setButtonsLock } from './actions/buttonsLockAction';
+import { addResult } from './actions/resultsAction';
 import { Stack, Button, Box } from '@mui/material';
 
 function ButtonStack(): JSX.Element {
   const state = useSelector((state: RootState) => state);
+  const { step, buttonsLock, locationsData, results } = state;
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(setButtonsLock([!state.step.value, undefined, undefined]));
-  }, [state.step.value]);
 
   const goNextStep = (): void => {
     dispatch(nextStep());
+
+    if (step.value === 2) {
+      // add or edit a result card
+      const chosenCountries = locationsData.value.filter((x) => x.isSelected);
+      interface IResult {
+        id: number;
+        data: ICountry[];
+        totalValue: number;
+      }
+
+      interface ICountry {
+        country: string;
+        regions: IRegion[];
+        totalValue: number;
+      }
+
+      interface IRegion {
+        name: string;
+        population: number;
+      }
+
+      const getAverageValue = (arr: number[]) => {
+        return Math.floor(arr.reduce((x, y) => x + y) / arr.length);
+      };
+
+      const resultData: ICountry[] = [];
+      const averageCountryLevelPopulations: number[] = [];
+
+      for (let i = 0; i < chosenCountries.length; i++) {
+        const regions: IRegion[] = [];
+        const averageRegionPopulations: number[] = [];
+
+        const country = chosenCountries[i];
+        for (let j = 0; j < country.regions.length; j++) {
+          const region = country.regions[j];
+          if (region.isSelected) {
+            const chosenDecadesPopulations = region.population.reduce(
+              (result, x) => {
+                const d = x.decade;
+                const v = region.sliderValue;
+
+                if (d >= v[0] && d <= v[1]) result.push(x.value);
+                return result;
+              },
+              [],
+            );
+
+            const averageRegionPopulation: number = getAverageValue(
+              chosenDecadesPopulations,
+            );
+
+            regions.push({
+              name: region.name,
+              population: averageRegionPopulation,
+            });
+            averageRegionPopulations.push(averageRegionPopulation);
+          }
+        }
+
+        const averagePopulation: number = getAverageValue(
+          averageRegionPopulations,
+        );
+        averageCountryLevelPopulations.push(averagePopulation);
+
+        resultData.push({
+          country: country.country,
+          regions,
+          totalValue: averagePopulation,
+        });
+      }
+
+      const newResult: IResult = {
+        id: results.value.length,
+        data: resultData,
+        totalValue: getAverageValue(averageCountryLevelPopulations),
+      };
+
+      dispatch(addResult(newResult));
+    }
   };
 
   const goPreviousStep = (): void => {
@@ -34,7 +109,7 @@ function ButtonStack(): JSX.Element {
     >
       <Button
         onClick={goPreviousStep}
-        disabled={state.buttonsLock.value[0]}
+        disabled={buttonsLock.value[0]}
         variant="outlined"
       >
         Back
@@ -42,14 +117,14 @@ function ButtonStack(): JSX.Element {
       <Box>
         <Button
           onClick={goNextStep}
-          disabled={state.buttonsLock.value[1]}
+          disabled={buttonsLock.value[1]}
           variant="text"
         >
           Skip
         </Button>
         <Button
           onClick={goNextStep}
-          disabled={state.buttonsLock.value[2]}
+          disabled={buttonsLock.value[2]}
           variant="contained"
         >
           Next

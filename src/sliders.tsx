@@ -19,7 +19,7 @@ const Sliders = (): JSX.Element => {
   }
 
   const state = useSelector((state: RootState) => state);
-  const { locations } = state;
+  const { locationsData } = state;
   const dispatch = useDispatch();
   const [globalVal, setGlobalVal] = useState<number[]>([1960, 2000]);
 
@@ -39,10 +39,11 @@ const Sliders = (): JSX.Element => {
 
     dispatch(
       setLocationsData(
-        locations.value.map((x) => ({
+        locationsData.value.map((x) => ({
           country: x.country,
           regions: x.regions.map((r) => ({
             name: r.name,
+            population: r.population,
             isSelected: r.isSelected,
             sliderValue: getSliderVal(r),
           })),
@@ -113,7 +114,7 @@ const Sliders = (): JSX.Element => {
       country: string;
       regions: IRegion[];
     }
-    const selectedItems = state.locations.value.filter((x) => x.isSelected);
+    const selectedItems = state.locationsData.value.filter((x) => x.isSelected);
     const displayItems: IDisplayItems[] = [];
 
     for (let i = 0; i < selectedItems.length; i++) {
@@ -133,7 +134,13 @@ const Sliders = (): JSX.Element => {
         {displayItems.map((x, i) => {
           return (
             <Box sx={{ width: 320, margin: '0 auto' }} key={i}>
-              <Typography mt={10} mb={5} variant="h6" textAlign="center">
+              <Typography
+                variant="h2"
+                mt={10}
+                mb={5}
+                textAlign="center"
+                fontSize={24}
+              >
                 {x.country}
               </Typography>
               {x.regions.map((y, i) => renderSlider(i, y))}
@@ -147,7 +154,7 @@ const Sliders = (): JSX.Element => {
   return (
     <>
       <Box sx={{ width: 320, margin: '0 auto' }}>
-        <Typography mt={5} mb={5} variant="h6" textAlign="center">
+        <Typography variant="h2" mt={5} mb={5} textAlign="center" fontSize={24}>
           Select decades
         </Typography>
         {renderSlider(-1)}

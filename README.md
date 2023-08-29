@@ -2,7 +2,7 @@
 
 ## Stack Used
 
-React + TypeScript, ESLint (Google preset) + Prettier, MUI, Styled Components
+React + TypeScript, Redux, ESLint (Google preset) + Prettier, MUI, Styled Components
 
 ## Conventions
 

@@ -22,12 +22,10 @@ const step = (state: State = initialState, action: Action) => {
   switch (action.type) {
     case NEXT_STEP:
       return {
-        ...state,
         value: state.value + 1,
       };
     case PREVIOUS_STEP:
       return {
-        ...state,
         value: state.value - 1,
       };
     default:

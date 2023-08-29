@@ -4,3 +4,7 @@ export const PREVIOUS_STEP = 'PREVIOUS_STEP';
 export const SET_BUTTONS_LOCK = 'SET_BUTTONS_LOCK';
 
 export const SET_LOCATIONS_DATA = 'SET_LOCATIONS_DATA';
+
+export const ADD_RESULT = 'ADD_RESULT';
+export const EDIT_RESULT = 'EDIT_RESULT';
+export const DELETE_RESULT = 'DELETE_RESULT';

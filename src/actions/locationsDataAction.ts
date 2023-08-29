@@ -8,8 +8,14 @@ interface IItem {
 
 interface IRegion {
   name: string;
+  population: IPopulation[];
   isSelected: boolean;
   sliderValue: number[];
+}
+
+interface IPopulation {
+  decade: number;
+  value: number;
 }
 
 const setLocationsData = (

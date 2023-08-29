@@ -19,7 +19,6 @@ const buttonsLock = (state: State = initialState, action: Action): State => {
   switch (action.type) {
     case SET_BUTTONS_LOCK:
       return {
-        ...state,
         value: action.payload.map((x, i) =>
           x === undefined ? state.value[i] : x,
         ),

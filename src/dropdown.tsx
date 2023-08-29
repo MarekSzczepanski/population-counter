@@ -16,19 +16,21 @@ const selectLabelsShort: string[] = ['Country', 'Region'];
 
 const Dropdown = (): JSX.Element => {
   const state = useSelector((state: RootState) => state);
-  const { step, locations } = state;
+  const { step, locationsData } = state;
   const dispatch = useDispatch();
   const [isSelectFocused, setSelectFocus] = useState<boolean>(false);
 
   useEffect(() => {
-    const isCountrySelected = locations.value.some((x) => x.isSelected);
-    const isRegionSelected = locations.value.some((x) =>
+    const isCountrySelected = locationsData.value.some((x) => x.isSelected);
+    const isRegionSelected = locationsData.value.some((x) =>
       x.regions.some((r) => r.isSelected),
     );
     const lockNextButton = step.value ? !isRegionSelected : !isCountrySelected;
 
-    dispatch(setButtonsLock([undefined, !lockNextButton, lockNextButton]));
-  }, [locations, step.value]);
+    dispatch(
+      setButtonsLock([Boolean(!step.value), !lockNextButton, lockNextButton]),
+    );
+  }, [locationsData, step.value]);
 
   const handleFocus = (): void => {
     setSelectFocus(true);
@@ -43,10 +45,11 @@ const Dropdown = (): JSX.Element => {
 
     dispatch(
       setLocationsData(
-        locations.value.map((x) => ({
+        locationsData.value.map((x) => ({
           country: x.country,
           regions: x.regions.map((r) => ({
             name: r.name,
+            population: r.population,
             isSelected: selectVal.includes(r.name),
             sliderValue: r.sliderValue,
           })),
@@ -60,8 +63,8 @@ const Dropdown = (): JSX.Element => {
     const itemsToRender: string[] = [];
 
     if (step.value) {
-      for (let i = 0; i < locations.value.length; i++) {
-        const item = locations.value[i];
+      for (let i = 0; i < locationsData.value.length; i++) {
+        const item = locationsData.value[i];
 
         if (item.isSelected) {
           for (let j = 0; j < item.regions.length; j++) {
@@ -71,8 +74,8 @@ const Dropdown = (): JSX.Element => {
         }
       }
     } else {
-      for (let i = 0; i < locations.value.length; i++) {
-        const item = locations.value[i];
+      for (let i = 0; i < locationsData.value.length; i++) {
+        const item = locationsData.value[i];
         if (item.isSelected) itemsToRender.push(item.country);
       }
     }
@@ -83,8 +86,8 @@ const Dropdown = (): JSX.Element => {
   const renderMenuItems = (): JSX.Element[] => {
     const itemsToRender: JSX.Element[] = [];
 
-    for (let i = 0; i < locations.value.length; i++) {
-      const item = locations.value[i];
+    for (let i = 0; i < locationsData.value.length; i++) {
+      const item = locationsData.value[i];
 
       if (step.value && item.isSelected) {
         itemsToRender.push(renderMenuItem(item.country, item.country, true));

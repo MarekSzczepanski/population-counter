@@ -99,6 +99,10 @@ const locations: ILocation[] = [
             decade: 1900,
             value: 1,
           },
+          {
+            decade: 1910,
+            value: 5,
+          },
         ],
       },
     ],
@@ -133,4 +137,4 @@ export const addIsSelectedProperties =
     }));
   };
 
-export { addIsSelectedProperties as locations };
+export { addIsSelectedProperties as initialLocationsData };

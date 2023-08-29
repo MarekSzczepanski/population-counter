@@ -1,7 +1,7 @@
 import { SET_LOCATIONS_DATA } from '../actionTypes/actionTypes';
-import { locations } from '../modules/locations';
+import { initialLocationsData } from '../modules/initialLocationsData';
 
-interface IActionSetLocationsData {
+interface IActionSetLocations {
   type: 'SET_LOCATIONS_DATA';
   payload: IItem[];
 }
@@ -14,18 +14,24 @@ interface IItem {
 
 interface IRegion {
   name: string;
+  population: IPopulation[];
   isSelected: boolean;
   sliderValue: number[];
 }
 
-type Action = IActionSetLocationsData;
+interface IPopulation {
+  decade: number;
+  value: number;
+}
+
+type Action = IActionSetLocations;
 
 interface State {
   value: IItem[];
 }
 
 const initialState: State = {
-  value: locations(),
+  value: initialLocationsData(),
 };
 
 const locationsData = (state: State = initialState, action: Action): State => {

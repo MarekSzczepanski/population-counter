@@ -4,6 +4,7 @@ import Stepper from './stepper';
 import ButtonStack from './buttonStack';
 import Dropdown from './dropdown';
 import Sliders from './sliders';
+import Results from './results';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme({
@@ -21,10 +22,10 @@ const theme = createTheme({
 
 function App(): JSX.Element {
   const state = useSelector((state: RootState) => state);
-  const componentByStep = (): JSX.Element | null => {
+  const componentByStep = (): JSX.Element => {
     if (state.step.value < 2) return <Dropdown />;
     else if (state.step.value < 3) return <Sliders />;
-    return null;
+    return <Results />;
   };
 
   return (
