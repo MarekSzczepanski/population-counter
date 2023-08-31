@@ -155,7 +155,7 @@ const Sliders = (): JSX.Element => {
   return (
     <>
       <Box sx={{ width: 320, margin: '0 auto' }}>
-        <Typography variant="h2" mt={5} mb={5} textAlign="center" fontSize={24}>
+        <Typography variant="h2" mt={5} mb={5} textAlign="center" fontSize={36}>
           Select decades
         </Typography>
         {renderSlider(-1)}

@@ -16,11 +16,16 @@ body {
 }
 #root .MuiFormLabel-root {
 	width: 100%;
-	max-width: 42px;
 	margin-bottom: 6px;
-	transform: none !important;
-	text-align: center;
+	margin: 4px 0 6px 6px;
+	transform: none;
 	font-size: 12px;
+}
+#root .MuiBox-root > .MuiFormLabel-root {
+	max-width: 42px;
+}
+#root .MuiSelect-select {
+	padding: 24px 14px 18px;
 }
 #root .grid-box {
 	display: grid;
@@ -32,10 +37,20 @@ body {
 	color: rgb(209, 49, 53);
   background-color: rgb(209, 49, 53, .2);
 }
-
+#root .cards-box {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
 
 @media (min-width: 1024px) {
 	body {
 		padding: 20px;
+	}
+	#root .cards-box {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-column-gap: 20px;
+		grid-row-gap: 20px; 
 	}
 }

@@ -8,11 +8,12 @@ import {
   InputLabel,
   MenuItem,
   FormControl,
+  Typography,
 } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 const selectLabels: string[] = ['Select countries', 'Select regions'];
-const selectLabelsShort: string[] = ['Country', 'Region'];
+const selectLabelsShort: string[] = ['Countries', 'Regions'];
 
 const Dropdown = (): JSX.Element => {
   const state = useSelector((state: RootState) => state);
@@ -120,24 +121,31 @@ const Dropdown = (): JSX.Element => {
   };
 
   return (
-    <FormControl sx={{ m: 1, width: 300 }}>
-      <InputLabel>
-        {isSelectFocused
-          ? selectLabelsShort[step.value]
-          : selectLabels[step.value]}
-      </InputLabel>
-      <Select
-        value={renderSelectValue()}
-        multiple
-        input={<OutlinedInput />}
-        onChange={handleChange}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
+    <>
+      <Typography variant="h1" mt={7.5} textAlign="center" fontSize={36}>
+        Average Population Counter
+      </Typography>
+      <FormControl
+        sx={{ width: 320, m: '48px auto 0 50%', transform: 'translateX(-50%)' }}
       >
-        {renderMenuItem(selectLabels[step.value], null, true, true, true)}
-        {renderMenuItems()}
-      </Select>
-    </FormControl>
+        <InputLabel>
+          {isSelectFocused
+            ? selectLabelsShort[step.value]
+            : selectLabels[step.value]}
+        </InputLabel>
+        <Select
+          value={renderSelectValue()}
+          multiple
+          input={<OutlinedInput />}
+          onChange={handleChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+        >
+          {renderMenuItem(selectLabels[step.value], null, true, true, true)}
+          {renderMenuItems()}
+        </Select>
+      </FormControl>
+    </>
   );
 };
 

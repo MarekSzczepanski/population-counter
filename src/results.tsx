@@ -24,6 +24,14 @@ const FatSpan = styled('span')`
   font-weight: 800;
 `;
 
+const shadowParts: string[] = [
+  '0px 2px 3px -1px rgba(0,0,0,0.2),',
+  '0px 0px 2px 0px rgba(0,0,0,0.2),',
+  '0px 1px 3px 0px rgba(0,0,0,0.12)',
+];
+
+const shadow = shadowParts.join('');
+
 const Results = (): JSX.Element => {
   interface IResult {
     id: number;
@@ -110,23 +118,43 @@ const Results = (): JSX.Element => {
     <>
       <Typography
         variant="h2"
-        m={5}
+        mt={5}
+        mb={5}
         textAlign="center"
-        fontSize={30}
+        fontSize={36}
         color="text.primary"
       >
         Average Population Values
       </Typography>
-      <Box className="grid-box" sx={{ display: 'flex' }}>
+      <Box className="cards-box" sx={{ display: 'flex' }}>
         {results.value.map((card: IResult, i: number) => {
           return (
-            <Card sx={{ alignSelf: 'start' }} key={i}>
-              <CardContent>
+            <Card
+              sx={{
+                alignSelf: 'start',
+                width: '100%',
+                mb: 2,
+                boxShadow: shadow,
+              }}
+              key={i}
+            >
+              <CardContent sx={{ position: 'relative' }}>
+                <Typography
+                  sx={{
+                    position: 'absolute',
+                    right: '0',
+                    transform: 'translateX(-50%)',
+                    fontSize: 12,
+                    color: 'text.secondary',
+                  }}
+                >
+                  Result {i + 1}
+                </Typography>
                 {card.data.map((country: ICountry, i: number) => {
                   return (
                     <Box key={i}>
                       <Typography mb={1} fontSize={14} color="text.secondary">
-                        {country.country}: {card.id}
+                        {country.country}:
                       </Typography>
                       {country.regions.map((r, i) => {
                         return (
