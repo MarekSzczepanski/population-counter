@@ -19,6 +19,7 @@ interface ICountry {
 interface IRegion {
   name: string;
   population: number;
+  sliderValue: number[];
 }
 
 const addResult = (

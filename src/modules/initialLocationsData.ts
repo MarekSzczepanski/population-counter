@@ -1,3 +1,5 @@
+import { defaultSliderValue } from '../App';
+
 interface ILocation {
   country: string;
   regions: IRegion[];
@@ -131,7 +133,7 @@ export const addIsSelectedProperties =
         name: r.name,
         population: r.population,
         isSelected: false,
-        sliderValue: [1960, 2000],
+        sliderValue: defaultSliderValue,
       })),
       isSelected: false,
     }));

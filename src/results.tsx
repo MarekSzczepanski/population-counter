@@ -2,7 +2,9 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from './store';
 import { setButtonsLock } from './actions/buttonsLockAction';
-import { deleteResult } from './actions/resultsAction';
+import { editResult, deleteResult } from './actions/resultsAction';
+import { changeStep } from './actions/stepAction';
+import { setLocationsData } from './actions/locationsDataAction';
 import {
   Card,
   CardContent,
@@ -13,6 +15,7 @@ import {
   Divider,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { defaultSliderValue } from './App';
 
 const Span = styled('span')`
   font-weight: 600;
@@ -36,16 +39,68 @@ const Results = (): JSX.Element => {
 
   interface IRegion {
     name: string;
+    sliderValue: number[];
     population: number;
   }
 
   const state = useSelector((state: RootState) => state);
-  const { results } = state;
+  const { results, locationsData } = state;
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(setButtonsLock([null, null, false]));
   }, []);
+
+  useEffect(() => {
+    const resultToEdit = results.value.find((x) => x.id < 0);
+    if (!resultToEdit) return; // delete a card
+    // edit a card:
+    // locations to show in dropdown:
+
+    interface regionWithSliderValue {
+      name: string;
+      value: number[];
+    }
+
+    const countries: string[] = [];
+    const regions: regionWithSliderValue[] = [];
+
+    resultToEdit.data.map((x) => {
+      countries.push(x.country);
+      x.regions.map((r) => {
+        regions.push({ name: r.name, value: r.sliderValue });
+      });
+    });
+
+    dispatch(
+      setLocationsData(
+        locationsData.value.map((x) => {
+          return {
+            country: x.country,
+            isSelected: countries.includes(x.country),
+            regions: x.regions.map((r) => {
+              const included = regions.find((reg) => reg.name === r.name);
+              return {
+                name: r.name,
+                isSelected: Boolean(included),
+                population: r.population,
+                sliderValue: included ? included.value : defaultSliderValue,
+              };
+            }),
+          };
+        }),
+      ),
+    );
+    dispatch(changeStep(0));
+  }, [results]);
+
+  useEffect(() => {
+    if (!results.value.some((x) => x.id < 0)) return;
+  }, [locationsData]);
+
+  const editCard = (cardId: number) => {
+    dispatch(editResult({ id: cardId }));
+  };
 
   const deleteCard = (id: number) => {
     dispatch(deleteResult({ id }));
@@ -71,7 +126,7 @@ const Results = (): JSX.Element => {
                   return (
                     <Box key={i}>
                       <Typography mb={1} fontSize={14} color="text.secondary">
-                        {country.country}:
+                        {country.country}: {card.id}
                       </Typography>
                       {country.regions.map((r, i) => {
                         return (
@@ -108,11 +163,15 @@ const Results = (): JSX.Element => {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" sx={{ fontWeight: 600 }}>
+                <Button
+                  onClick={() => editCard(i + 1)}
+                  size="small"
+                  sx={{ fontWeight: 600 }}
+                >
                   EDIT CARD
                 </Button>
                 <Button
-                  onClick={() => deleteCard(i)}
+                  onClick={() => deleteCard(i + 1)}
                   size="small"
                   sx={{ color: '#D13135', fontWeight: 600 }}
                   className="deleteButton"

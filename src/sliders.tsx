@@ -6,6 +6,7 @@ import { setLocationsData } from './actions/locationsDataAction';
 import { Box, Slider, InputLabel, Typography } from '@mui/material';
 import MuiInput from '@mui/material/Input';
 import { styled } from '@mui/material/styles';
+import { defaultSliderValue } from './App';
 
 const Input = styled(MuiInput)`
   width: 42px;
@@ -15,13 +16,13 @@ const Sliders = (): JSX.Element => {
   interface IRegion {
     name: string;
     isSelected?: boolean;
-    sliderValue?: number[];
+    sliderValue: number[];
   }
 
   const state = useSelector((state: RootState) => state);
   const { locationsData } = state;
   const dispatch = useDispatch();
-  const [globalVal, setGlobalVal] = useState<number[]>([1960, 2000]);
+  const [globalVal, setGlobalVal] = useState<number[]>(defaultSliderValue);
 
   useEffect(() => {
     dispatch(setButtonsLock([undefined, false, true]));

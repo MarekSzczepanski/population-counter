@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from './store';
 import { changeStep } from './actions/stepAction';
-import { addResult } from './actions/resultsAction';
+import { addResult, editResult } from './actions/resultsAction';
 import { setLocationsData } from './actions/locationsDataAction';
 import { initialLocationsData } from './modules/initialLocationsData';
 import { Stack, Button, Box } from '@mui/material';
@@ -12,8 +12,6 @@ function ButtonStack(): JSX.Element {
   const dispatch = useDispatch();
 
   const goNextStep = (): void => {
-    dispatch(changeStep(step.value + 1));
-
     if (step.value === 2) {
       // add or edit a result card
       const chosenCountries = locationsData.value.filter((x) => x.isSelected);
@@ -31,6 +29,7 @@ function ButtonStack(): JSX.Element {
 
       interface IRegion {
         name: string;
+        sliderValue: number[];
         population: number;
       }
 
@@ -66,6 +65,7 @@ function ButtonStack(): JSX.Element {
 
             regions.push({
               name: region.name,
+              sliderValue: region.sliderValue,
               population: averageRegionPopulation,
             });
             averageRegionPopulations.push(averageRegionPopulation);
@@ -84,14 +84,17 @@ function ButtonStack(): JSX.Element {
         });
       }
 
+      const resultToEdit = results.value.find((x) => x.id < 0);
       const newResult: IResult = {
-        id: results.value.length,
+        id: resultToEdit ? resultToEdit.id : results.value.length + 1,
         data: resultData,
         totalValue: getAverageValue(averageCountryLevelPopulations),
       };
 
-      dispatch(addResult(newResult));
+      if (resultToEdit) dispatch(editResult(newResult));
+      else dispatch(addResult(newResult));
     }
+    dispatch(changeStep(step.value + 1));
   };
 
   const goPreviousStep = (): void => {
@@ -111,26 +114,31 @@ function ButtonStack(): JSX.Element {
         m: '80px auto',
         width: 320,
         display: 'flex',
-        justifyContent: `${buttonsLock.value[0] === null
-          ? 'center' : 'space-between'}`,
+        justifyContent: `${
+          buttonsLock.value[0] === null ? 'center' : 'space-between'
+        }`,
       }}
     >
       <Button
         onClick={goPreviousStep}
         disabled={buttonsLock.value[0]}
         variant="outlined"
-        sx={{display: `${buttonsLock.value[0] === null
-          ? 'none' : 'inline-block'}`}}
+        sx={{
+          display: `${buttonsLock.value[0] === null ? 'none' : 'inline-block'}`,
+        }}
       >
         Back
       </Button>
-      <Box className='no-margin'>
+      <Box className="no-margin">
         <Button
           onClick={goNextStep}
           disabled={buttonsLock.value[1]}
           variant="text"
-          sx={{display: `${buttonsLock.value[1] === null
-            ? 'none' : 'inline-block'}`}}
+          sx={{
+            display: `${
+              buttonsLock.value[1] === null ? 'none' : 'inline-block'
+            }`,
+          }}
         >
           Skip
         </Button>

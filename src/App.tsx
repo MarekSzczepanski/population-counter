@@ -39,4 +39,6 @@ function App(): JSX.Element {
   );
 }
 
+export const defaultSliderValue = [1960, 2000];
+
 export default App;
