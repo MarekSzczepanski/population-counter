@@ -105,6 +105,50 @@ const locations: ILocation[] = [
             decade: 1910,
             value: 5,
           },
+          {
+            decade: 1920,
+            value: 5,
+          },
+          {
+            decade: 1930,
+            value: 5,
+          },
+          {
+            decade: 1940,
+            value: 5,
+          },
+          {
+            decade: 1950,
+            value: 5,
+          },
+          {
+            decade: 1960,
+            value: 5,
+          },
+          {
+            decade: 1970,
+            value: 5,
+          },
+          {
+            decade: 1980,
+            value: 5,
+          },
+          {
+            decade: 1990,
+            value: 5,
+          },
+          {
+            decade: 2000,
+            value: 5,
+          },
+          {
+            decade: 2010,
+            value: 5,
+          },
+          {
+            decade: 2020,
+            value: 5,
+          },
         ],
       },
     ],
@@ -118,6 +162,54 @@ const locations: ILocation[] = [
           {
             decade: 1900,
             value: 1,
+          },
+          {
+            decade: 1910,
+            value: 5,
+          },
+          {
+            decade: 1920,
+            value: 5,
+          },
+          {
+            decade: 1930,
+            value: 5,
+          },
+          {
+            decade: 1940,
+            value: 5,
+          },
+          {
+            decade: 1950,
+            value: 5,
+          },
+          {
+            decade: 1960,
+            value: 5,
+          },
+          {
+            decade: 1970,
+            value: 5,
+          },
+          {
+            decade: 1980,
+            value: 5,
+          },
+          {
+            decade: 1990,
+            value: 5,
+          },
+          {
+            decade: 2000,
+            value: 5,
+          },
+          {
+            decade: 2010,
+            value: 5,
+          },
+          {
+            decade: 2020,
+            value: 5,
           },
         ],
       },

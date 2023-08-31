@@ -11,7 +11,7 @@ function ButtonStack(): JSX.Element {
   const { step, buttonsLock, locationsData, results } = state;
   const dispatch = useDispatch();
 
-  const goNextStep = (): void => {
+  const goNextStep = (isSkip?: boolean): void => {
     if (step.value === 2) {
       // add or edit a result card
       const chosenCountries = locationsData.value.filter((x) => x.isSelected);
@@ -93,6 +93,21 @@ function ButtonStack(): JSX.Element {
 
       if (resultToEdit) dispatch(editResult(newResult));
       else dispatch(addResult(newResult));
+    } else if (isSkip) {
+      dispatch(
+        setLocationsData(
+          locationsData.value.map((x) => ({
+            country: x.country,
+            regions: x.regions.map((r) => ({
+              name: r.name,
+              population: r.population,
+              isSelected: step.value === 1 ? true : r.isSelected,
+              sliderValue: r.sliderValue,
+            })),
+            isSelected: !step.value ? true : x.isSelected,
+          })),
+        ),
+      );
     }
     dispatch(changeStep(step.value + 1));
   };
@@ -131,7 +146,7 @@ function ButtonStack(): JSX.Element {
       </Button>
       <Box className="no-margin">
         <Button
-          onClick={goNextStep}
+          onClick={() => goNextStep(true)}
           disabled={buttonsLock.value[1]}
           variant="text"
           sx={{
@@ -143,7 +158,7 @@ function ButtonStack(): JSX.Element {
           Skip
         </Button>
         <Button
-          onClick={step.value === 3 ? addNewCard : goNextStep}
+          onClick={step.value === 3 ? addNewCard : () => goNextStep()}
           disabled={buttonsLock.value[2]}
           variant="contained"
         >
