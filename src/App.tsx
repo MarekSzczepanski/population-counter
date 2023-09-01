@@ -38,7 +38,7 @@ function App(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
-        <Img src={logo} alt="logo" width={100} height={100}/>
+        <Img src={logo} alt="logo" width={100} height={100} />
         <Stepper activeStep={state.step.value} />
         {componentByStep()}
         <ButtonStack />
