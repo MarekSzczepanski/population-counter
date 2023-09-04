@@ -118,12 +118,14 @@ const Sliders = (): JSX.Element => {
     const selectedItems = state.locationsData.value.filter((x) => x.isSelected);
     const displayItems: IDisplayItems[] = [];
 
-    for (let i = 0; i < selectedItems.length; i++) {
+    const length = selectedItems.length;
+    for (let i = 0; i < length; i++) {
       const item = selectedItems[i];
 
       displayItems.push({ country: item.country, regions: [] });
 
-      for (let j = 0; j < item.regions.length; j++) {
+      const length2 = item.regions.length;
+      for (let j = 0; j < length2; j++) {
         if (item.regions[j].isSelected) {
           displayItems[i].regions.push(item.regions[j]);
         }

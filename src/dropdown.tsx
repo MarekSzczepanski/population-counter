@@ -63,21 +63,13 @@ const Dropdown = (): JSX.Element => {
   const renderSelectValue = (): string[] => {
     const itemsToRender: string[] = [];
 
-    if (step.value) {
-      for (let i = 0; i < locationsData.value.length; i++) {
-        const item = locationsData.value[i];
-
-        if (item.isSelected) {
-          for (let j = 0; j < item.regions.length; j++) {
-            const r = item.regions[j];
+    for (const item of locationsData.value) {
+      if (item.isSelected) {
+        if (step.value) {
+          for (const r of item.regions) {
             if (r.isSelected) itemsToRender.push(r.name);
           }
-        }
-      }
-    } else {
-      for (let i = 0; i < locationsData.value.length; i++) {
-        const item = locationsData.value[i];
-        if (item.isSelected) itemsToRender.push(item.country);
+        } else itemsToRender.push(item.country);
       }
     }
 
@@ -87,16 +79,12 @@ const Dropdown = (): JSX.Element => {
   const renderMenuItems = (): JSX.Element[] => {
     const itemsToRender: JSX.Element[] = [];
 
-    for (let i = 0; i < locationsData.value.length; i++) {
-      const item = locationsData.value[i];
-
+    for (const item of locationsData.value) {
       if (step.value && item.isSelected) {
         itemsToRender.push(renderMenuItem(item.country, item.country, true));
 
-        for (let j = 0; j < item.regions.length; j++) {
-          const region = item.regions[j].name;
-
-          itemsToRender.push(renderMenuItem(region, region));
+        for (const region of item.regions) {
+          itemsToRender.push(renderMenuItem(region.name, region.name));
         }
       } else if (!step.value) {
         itemsToRender.push(renderMenuItem(item.country, item.country));

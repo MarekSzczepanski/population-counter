@@ -40,13 +40,11 @@ function ButtonStack(): JSX.Element {
       const resultData: ICountry[] = [];
       const averageCountryLevelPopulations: number[] = [];
 
-      for (let i = 0; i < chosenCountries.length; i++) {
+      for (const country of chosenCountries) {
         const regions: IRegion[] = [];
         const averageRegionPopulations: number[] = [];
 
-        const country = chosenCountries[i];
-        for (let j = 0; j < country.regions.length; j++) {
-          const region = country.regions[j];
+        for (const region of country.regions) {
           if (region.isSelected) {
             const chosenDecadesPopulations = region.population.reduce(
               (result, x) => {
