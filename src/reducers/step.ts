@@ -1,4 +1,4 @@
-import { CHANGE_STEP } from '../actionTypes/actionTypes';
+import { CHANGE_STEP } from '../actionTypes';
 
 interface IActionChangeStep {
   type: 'CHANGE_STEP';

@@ -2,7 +2,7 @@ import {
   ADD_RESULT,
   EDIT_RESULT,
   DELETE_RESULT,
-} from '../actionTypes/actionTypes';
+} from '../actionTypes';
 
 interface IPayload {
   id: number;

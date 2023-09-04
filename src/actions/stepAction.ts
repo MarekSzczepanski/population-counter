@@ -1,4 +1,4 @@
-import { CHANGE_STEP } from '../actionTypes/actionTypes';
+import { CHANGE_STEP } from '../actionTypes';
 
 const changeStep = (
   step: number,

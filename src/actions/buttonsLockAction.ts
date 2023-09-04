@@ -1,4 +1,4 @@
-import { SET_BUTTONS_LOCK } from '../actionTypes/actionTypes';
+import { SET_BUTTONS_LOCK } from '../actionTypes';
 
 const setButtonsLock = (
   settings: boolean[],

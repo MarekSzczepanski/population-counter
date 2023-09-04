@@ -1,4 +1,4 @@
-import { defaultSliderValue } from '../App';
+import { defaultSliderValue } from '../components/App';
 
 interface ILocation {
   country: string;

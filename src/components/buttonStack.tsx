@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from './store';
-import { changeStep } from './actions/stepAction';
-import { addResult, editResult } from './actions/resultsAction';
-import { setLocationsData } from './actions/locationsDataAction';
-import { initialLocationsData } from './modules/initialLocationsData';
+import { RootState } from '../store';
+import { changeStep } from '../actions/stepAction';
+import { addResult, editResult } from '../actions/resultsAction';
+import { setLocationsData } from '../actions/locationsDataAction';
+import { initialLocationsData } from '../modules/initialLocationsData';
 import { Stack, Button, Box } from '@mui/material';
 
 function ButtonStack(): JSX.Element {

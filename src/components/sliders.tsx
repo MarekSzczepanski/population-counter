@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from './store';
-import { setButtonsLock } from './actions/buttonsLockAction';
-import { setLocationsData } from './actions/locationsDataAction';
+import { RootState } from '../store';
+import { setButtonsLock } from '../actions/buttonsLockAction';
+import { setLocationsData } from '../actions/locationsDataAction';
 import { Box, Slider, InputLabel, Typography } from '@mui/material';
 import MuiInput from '@mui/material/Input';
 import { styled } from '@mui/material/styles';

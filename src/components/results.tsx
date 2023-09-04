@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from './store';
-import { setButtonsLock } from './actions/buttonsLockAction';
-import { editResult, deleteResult } from './actions/resultsAction';
-import { changeStep } from './actions/stepAction';
-import { setLocationsData } from './actions/locationsDataAction';
+import { RootState } from '../store';
+import { setButtonsLock } from '../actions/buttonsLockAction';
+import { editResult, deleteResult } from '../actions/resultsAction';
+import { changeStep } from '../actions/stepAction';
+import { setLocationsData } from '../actions/locationsDataAction';
 import {
   Card,
   CardContent,

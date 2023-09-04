@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { RootState } from './store';
+import { RootState } from '../store';
 import Stepper from './stepper';
 import ButtonStack from './buttonStack';
 import Dropdown from './dropdown';
@@ -7,7 +7,7 @@ import Sliders from './sliders';
 import Results from './results';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { styled } from '@mui/material/styles';
-import logo from './assets/logo.png';
+import logo from '../assets/logo.png';
 
 const Img = styled('img')`
   display: block;

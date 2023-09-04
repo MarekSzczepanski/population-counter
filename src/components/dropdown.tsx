@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from './store';
-import { setLocationsData } from './actions/locationsDataAction';
-import { setButtonsLock } from './actions/buttonsLockAction';
+import { RootState } from '../store';
+import { setLocationsData } from '../actions/locationsDataAction';
+import { setButtonsLock } from '../actions/buttonsLockAction';
 import {
   OutlinedInput,
   InputLabel,

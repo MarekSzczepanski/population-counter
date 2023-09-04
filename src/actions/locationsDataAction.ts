@@ -1,4 +1,4 @@
-import { SET_LOCATIONS_DATA } from '../actionTypes/actionTypes';
+import { SET_LOCATIONS_DATA } from '../actionTypes';
 
 interface IItem {
   country: string;

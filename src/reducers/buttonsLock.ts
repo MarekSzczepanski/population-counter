@@ -1,4 +1,4 @@
-import { SET_BUTTONS_LOCK } from '../actionTypes/actionTypes';
+import { SET_BUTTONS_LOCK } from '../actionTypes';
 
 interface IActionSetButtonsLock {
   type: 'SET_BUTTONS_LOCK';
