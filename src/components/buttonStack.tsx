@@ -70,9 +70,9 @@ function ButtonStack(): JSX.Element {
           }
         }
 
-        const averagePopulation: number = getAverageValue(
-          averageRegionPopulations,
-        );
+        const averagePopulation: number = averageRegionPopulations.length
+          ? getAverageValue(averageRegionPopulations)
+          : 0;
         averageCountryLevelPopulations.push(averagePopulation);
 
         resultData.push({
